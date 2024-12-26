@@ -1,0 +1,10 @@
+NAME="Tortoise"
+PRETTY_NAME="Tortoise Linux"
+ID="TortoiseLinux"
+ID_LIKE="arch"
+BUILD_ID=rolling
+ANSI_COLOR="0;32"
+HOME_URL="https://github.com/tortoiselinux"
+SUPPORT_URL="https://github.com/tortoiselinux/tortoise-development/issues"
+BUG_REPORT_URL="https://github.com/tortoiselinux/tortoise-development/issues"
+LOGO="Tortoise Linux"
