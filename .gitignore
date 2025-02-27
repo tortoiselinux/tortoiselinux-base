@@ -1,1 +1,6 @@
 iso/*.iso
+trash/
+notes/*
+notes.md
+notes.txt
+notes.org
