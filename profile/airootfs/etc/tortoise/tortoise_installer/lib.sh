@@ -9,6 +9,8 @@
 red='\e[31m'
 reset='\e[0m'
 
+TORTOISE_DIR="/etc/tortoise/tortoise_installer"
+
 print(){
     local MSG="$1"
     printf '%s\n' "$MSG"
@@ -17,10 +19,10 @@ print(){
 error() {
   local MSG="$1"
   local EXIT_CODE="${2:-1}"
-  local LOG_FILE="/home/turtle/tortoise_installer/logs/track.log"
+  local LOG_FILE="$TORTOISE_DIR/logs/track.log"
   
   [[ -f "/home/turtle/tortoise_installer/config.sh" ]] && \
-      source "/home/turtle/tortoise_installer/config.sh"
+      source "$TORTOISE_DIR/config.sh"
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
@@ -62,7 +64,7 @@ source_or_create(){
 # make this function dont duplicate progress key
 write_progress(){
     PROGRESSKEY="$1"
-    PROGRESSFILE="$2"
+    PROGRESSFILE="$TORTOISE_DIR/logs/progress"
 
     print "$PROGRESSKEY" >> "$PROGRESSFILE"
 
@@ -75,7 +77,7 @@ write_progress(){
 write_env_var(){
     KEY="$1"
     VALUE="$2"
-    echo "$KEY=\"$VALUE\"" >> ./tortoise_installer/install.conf
+    echo "$KEY=\"$VALUE\"" >> "$TORTOISE_DIR/install.conf"
 }
 
 make_partitions(){
@@ -239,19 +241,19 @@ copy_config_files(){
     
     print "Copy skel to new system"
     mkdir -p /mnt/etc/skel ||  echo "failed to create skel"
-    cp -vr /home/turtle/tortoise_installer/files/.config /mnt/etc/skel/ || \
+    cp -vr $TORTOISE_DIR/files/.config /mnt/etc/skel/ || \
 	error "failed to copy .config to new root" 
-    cp -v /home/turtle/tortoise_installer/files/.bashrc /mnt/etc/skel/ ||  \
+    cp -v $TORTOISE_DIR/files/.bashrc /mnt/etc/skel/ ||  \
 	error "failed to copy .bashrc to new root" 
-    cp -v /home/turtle/tortoise_installer/files/.bash_aliases /mnt/etc/skel/ || \
+    cp -v $TORTOISE_DIR/files/.bash_aliases /mnt/etc/skel/ || \
 	error "failed to copy .bash_aliases to new root"
     
     chmod -R u=rwX,g=rX,o= /mnt/etc/skel/ ||  echo "failed to take right permissions" 
 
     print "Copy display-manager config"
-    if [ -f /home/turtle/tortoise_installer/files/lightdm.service ]; then
+    if [ -f $TORTOISE_DIR/files/lightdm.service ]; then
 	rm /mnt/usr/lib/systemd/system/lightdm.service 
-	cp -v /home/turtle/tortoise_installer/files/lightdm.service /mnt/usr/lib/systemd/system/ || \
+	cp -v $TORTOISE_DIR/files/lightdm.service /mnt/usr/lib/systemd/system/ || \
 	     error "Failed to copy display-manager.service"
 	chmod 644 /mnt/usr/lib/systemd/system/lightdm.service ||  echo "Failed to give permissions" 
 	print "lightdm.service copied successfully."
@@ -321,7 +323,7 @@ install_packages(){
 
     local attempts=5
     for ((i=1; i<=attempts; i++)); do
-        pacstrap -K /mnt $(cat /home/turtle/tortoise_installer/packages/packages) \
+        pacstrap -K /mnt $(cat $TORTOISE_DIR/packages/packages) \
             --needed --overwrite '*' && return 0
         echo "Attempt $i/$attempts failed. Retrying..."
         sleep 5
@@ -352,7 +354,7 @@ generate_locale_gen(){
 
 generate_locale_conf(){
     ENCODE="$1"
-    arch-chroot /mnt /bin/bash -c "echo "LANG=$ENCODE" > /etc/locale.conf"
+    arch-chroot /mnt /bin/bash -c "echo \"LANG=$ENCODE\" > /etc/locale.conf"
 }
 
 write_vconsole(){

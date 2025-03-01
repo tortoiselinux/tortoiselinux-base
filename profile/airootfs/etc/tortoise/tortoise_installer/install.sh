@@ -8,15 +8,15 @@
 
 set -ex
 
-source tortoise_installer/lib.sh
-source tortoise_installer/logs/progress
-source_or_create ./tortoise_installer/install.conf
+source /etc/tortoise/tortoise_installer/lib.sh
+source /etc/tortoise/tortoise_installer/logs/progress
+source_or_create /etc/tortoise/tortoise_installer/install.conf
 
 ESSENTIAL_INSTALLATION_DATA="base linux linux-firmware grub efibootmgr sudo git curl wget dialog reflector i3 i3-wm i3blocks i3status rofi dmenu nemo lxappearance nitrogen lightdm lightdm-gtk-greeter lightdm-gtk-greeter-settings xfce4-terminal networkmanager"
 
 HOME=""
 
-[[ $PARTITIONS == true ]] || (make_partitions && write_progress "PARTITIONS=true" "tortoise_installer/logs/progress")
+[[ $PARTITIONS == true ]] || (make_partitions && write_progress "PARTITIONS=true")
 
 [[ -v EFI ]] || (get_efi && write_env_var "EFI" "$EFI")
 [[ -v SWAP ]] || (get_swap && write_env_var "SWAP" "$SWAP")
@@ -32,16 +32,16 @@ HOME=""
 
 get_packages
 
-source tortoise_installer/install.conf
+source /etc/tortoise/tortoise_installer/install.conf
 
 {
     #echo "$INTERFACE" | tr ' ' '\n'
     echo "$DEVTOOLS" | tr ' ' '\n'
     echo "$INTERNET" | tr ' ' '\n'
     echo "$LANGUAGES" | tr ' ' '\n'
-    cat /home/turtle/tortoise_installer/packages/essential-packages && echo ""
-    cat /home/turtle/tortoise_installer/packages/i3wm-edition-essential-packages
-} > /home/turtle/tortoise_installer/packages/packages
+    cat /etc/tortoise/tortoise_installer/packages/essential-packages && echo ""
+    cat /etc/tortoise/tortoise_installer/packages/i3wm-edition-essential-packages
+} > /etc/tortoise/tortoise_installer/packages/packages
 
 set_keyboard "$KEYBOARD"
 

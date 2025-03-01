@@ -131,6 +131,7 @@ zsh
 # i3 iso files
 
 xorg
+xorg-xinit
 i3
 i3-wm
 i3blocks
@@ -138,11 +139,11 @@ i3status
 rofi
 dmenu
 nemo
-#lxappearance
+lxappearance
 nitrogen
-lightdm
-lightdm-gtk-greeter
-lightdm-gtk-greeter-settings
+#lightdm
+#lightdm-gtk-greeter
+#lightdm-gtk-greeter-settings
 xfce4-terminal
 ttf-jetbrains-mono-nerd
 #ttf-dejavu
