@@ -70,7 +70,7 @@ verify_and_clean
 
 # INIT BUILD
 
-mkiso
+time mkiso
 
 # CLEANING WORKDIR AFTER BUILD
 
