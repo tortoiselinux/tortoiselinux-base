@@ -128,7 +128,7 @@ xfsprogs
 xl2tpd
 zsh
 
-# i3 iso files
+# GRAPHICAL ENV PACKAGES
 
 xorg
 xorg-xinit
@@ -141,22 +141,16 @@ dmenu
 nemo
 lxappearance
 nitrogen
-#lightdm
-#lightdm-gtk-greeter
-#lightdm-gtk-greeter-settings
 xfce4-terminal
 ttf-jetbrains-mono-nerd
-#ttf-dejavu
-#ttf-liberation
-#noto-fonts
-#midnight-gtk-theme-git
-#papirus-icon-theme
-#nordzy-cursors
+# ttf-dejavu
+# ttf-liberation
+# noto-fonts
+midnight-gtk-theme-git
+papirus-icon-theme
+nordzy-cursors
 
-######## MEUS PACOTES ########
-
-
-## SÉRIE [E]
+# ESSENTIAL PACKAGES
 git
 curl
 wget
@@ -164,25 +158,6 @@ dialog
 #expect
 reflector
 
-## SÉRIE [L]
-# go
-# rust
-#lua
-#python
-# ruby
-# php
-
-## SÉRIE [R]
-# nodejs
-
-## SÉRIE [PM]
-# npm
-# yarn
-yay
-
-## SÉRIE [P]
-# code
-# neovim
 fastfetch
 micro
 emacs
