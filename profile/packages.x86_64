@@ -157,6 +157,7 @@ wget
 dialog
 #expect
 reflector
+base-devel
 
 fastfetch
 micro

@@ -9,7 +9,7 @@
 red='\e[31m'
 reset='\e[0m'
 
-source ./env
+source /etc/tortoise/tortoise_installer/env
 
 print(){
     local MSG="$1"
@@ -248,19 +248,19 @@ copy_config_files(){
     
     print "Copy skel to new system"
     mkdir -p /mnt/etc/skel ||  echo "failed to create skel"
-    cp -vr $INSTALL_DIR/files/.config /mnt/etc/skel/ || \
+    cp -vr $INSTALLER_DIR/files/.config /mnt/etc/skel/ || \
 	error "failed to copy .config to new root" 
-    cp -v $INSTALL_DIR/files/.bashrc /mnt/etc/skel/ ||  \
+    cp -v $INSTALLER_DIR/files/.bashrc /mnt/etc/skel/ ||  \
 	error "failed to copy .bashrc to new root" 
-    cp -v $INSTALL_DIR/files/.bash_aliases /mnt/etc/skel/ || \
+    cp -v $INSTALLER_DIR/files/.bash_aliases /mnt/etc/skel/ || \
 	error "failed to copy .bash_aliases to new root"
     
     chmod -R u=rwX,g=rX,o= /mnt/etc/skel/ ||  echo "failed to take right permissions" 
 
     print "Copy display-manager config"
-    if [ -f $INSTALL_DIR/files/lightdm.service ]; then
+    if [ -f $INSTALLER_DIR/files/lightdm.service ]; then
 	rm /mnt/usr/lib/systemd/system/lightdm.service 
-	cp -v $INSTALL_DIR/files/lightdm.service /mnt/usr/lib/systemd/system/ || \
+	cp -v $INSTALLER_DIR/files/lightdm.service /mnt/usr/lib/systemd/system/ || \
 	     error "Failed to copy display-manager.service"
 	chmod 644 /mnt/usr/lib/systemd/system/lightdm.service ||  echo "Failed to give permissions" 
 	print "lightdm.service copied successfully."
@@ -330,7 +330,7 @@ install_packages(){
 
     local attempts=5
     for ((i=1; i<=attempts; i++)); do
-        pacstrap -K /mnt $(cat $INSTALL_DIR/packages/packages) \
+        pacstrap -K /mnt $(cat $INSTALLER_DIR/packages/packages) \
             --needed --overwrite '*' && return 0
         echo "Attempt $i/$attempts failed. Retrying..."
         sleep 5
