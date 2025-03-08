@@ -28,5 +28,5 @@ file_permissions=(
   ["/usr/local/bin/livecd-sound"]="0:0:755"
   ["/etc/tortoise/tortoise_installer/install.sh"]="0:0:755"
   ["/etc/skel/.xinitrc"]="0:0:755"
-  ["/root/install.sh"]="0:0:755"
+  ["/etc/tortoise/tortoise_installer/configure.sh"]="0:0:755"
 )
