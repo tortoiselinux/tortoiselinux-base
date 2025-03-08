@@ -9,7 +9,7 @@
 red='\e[31m'
 reset='\e[0m'
 
-TORTOISE_DIR="/etc/tortoise/tortoise_installer"
+source ./env
 
 print(){
     local MSG="$1"
@@ -19,10 +19,10 @@ print(){
 error() {
   local MSG="$1"
   local EXIT_CODE="${2:-1}"
-  local LOG_FILE="$TORTOISE_DIR/logs/track.log"
+  local LOG_FILE="$INSTALLER_DIR/logs/track.log"
   
-  [[ -f "/home/turtle/tortoise_installer/config.sh" ]] && \
-      source "$TORTOISE_DIR/config.sh"
+  [[ -f "$INSTALLER_DIR/env" ]] && \
+      source "$INSTALLER_DIR/env"
 
   mkdir -p "$(dirname "$LOG_FILE")"
 
@@ -54,6 +54,12 @@ success(){
     return 0
 }
 
+verify_and_source(){
+    local FILEPATH="$1"
+    [[ -f "$FILEPATH" ]] || error "$1 does't exist."
+    source "$FILEPATH"
+}
+
 source_or_create(){
     local FILEPATH="$1"
     [[ -f "$FILEPATH" ]] || touch "$FILEPATH"
@@ -64,7 +70,7 @@ source_or_create(){
 # make this function dont duplicate progress key
 write_progress(){
     PROGRESSKEY="$1"
-    PROGRESSFILE="$TORTOISE_DIR/logs/progress"
+    PROGRESSFILE="$INSTALLER_DIR/logs/progress"
 
     print "$PROGRESSKEY" >> "$PROGRESSFILE"
 
@@ -77,7 +83,8 @@ write_progress(){
 write_env_var(){
     KEY="$1"
     VALUE="$2"
-    echo "$KEY=\"$VALUE\"" >> "$TORTOISE_DIR/install.conf"
+    FILE="$3"
+    echo "$KEY=\"$VALUE\"" >> "$FILE"
 }
 
 make_partitions(){
@@ -241,19 +248,19 @@ copy_config_files(){
     
     print "Copy skel to new system"
     mkdir -p /mnt/etc/skel ||  echo "failed to create skel"
-    cp -vr $TORTOISE_DIR/files/.config /mnt/etc/skel/ || \
+    cp -vr $INSTALL_DIR/files/.config /mnt/etc/skel/ || \
 	error "failed to copy .config to new root" 
-    cp -v $TORTOISE_DIR/files/.bashrc /mnt/etc/skel/ ||  \
+    cp -v $INSTALL_DIR/files/.bashrc /mnt/etc/skel/ ||  \
 	error "failed to copy .bashrc to new root" 
-    cp -v $TORTOISE_DIR/files/.bash_aliases /mnt/etc/skel/ || \
+    cp -v $INSTALL_DIR/files/.bash_aliases /mnt/etc/skel/ || \
 	error "failed to copy .bash_aliases to new root"
     
     chmod -R u=rwX,g=rX,o= /mnt/etc/skel/ ||  echo "failed to take right permissions" 
 
     print "Copy display-manager config"
-    if [ -f $TORTOISE_DIR/files/lightdm.service ]; then
+    if [ -f $INSTALL_DIR/files/lightdm.service ]; then
 	rm /mnt/usr/lib/systemd/system/lightdm.service 
-	cp -v $TORTOISE_DIR/files/lightdm.service /mnt/usr/lib/systemd/system/ || \
+	cp -v $INSTALL_DIR/files/lightdm.service /mnt/usr/lib/systemd/system/ || \
 	     error "Failed to copy display-manager.service"
 	chmod 644 /mnt/usr/lib/systemd/system/lightdm.service ||  echo "Failed to give permissions" 
 	print "lightdm.service copied successfully."
@@ -262,7 +269,7 @@ copy_config_files(){
 	exit 1
     fi
 
-    cat /mnt/usr/lib/systemd/system/lightdm.service 
+    #cat /mnt/usr/lib/systemd/system/lightdm.service 
 }
 
 gen_fstab(){
@@ -323,7 +330,7 @@ install_packages(){
 
     local attempts=5
     for ((i=1; i<=attempts; i++)); do
-        pacstrap -K /mnt $(cat $TORTOISE_DIR/packages/packages) \
+        pacstrap -K /mnt $(cat $INSTALL_DIR/packages/packages) \
             --needed --overwrite '*' && return 0
         echo "Attempt $i/$attempts failed. Retrying..."
         sleep 5
