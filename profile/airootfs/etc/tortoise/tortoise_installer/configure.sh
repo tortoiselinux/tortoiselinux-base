@@ -21,6 +21,7 @@ commands:
     h | help
     u | update
     f | file
+    d | dotfiles (TODO)
 
     NOTE: (-) or (--) before commands is optional
 "
@@ -30,33 +31,36 @@ case $1 in
         print "$HELP"
 	;;
     
+    u | -u | update | --update)
+	echo "UPDATE INSTALLER"
+
+	[ -d /tmp/tortoise ] && rm -rf /tmp/tortoise
+	
+	mkdir -p /tmp/tortoise
+	if ! git clone --depth=1 https://github.com/tortoiselinux/install.git /tmp/tortoise; then
+            echo "Erro: Falha ao clonar o repositório." >&2
+            exit 1
+	fi
+
+	if ! cd /tmp/tortoise; then
+            echo "Erro: Falha ao entrar no diretório /tmp/tortoise." >&2
+            exit 1
+	fi
+
+	if ! make; then
+            echo "Erro: Falha ao executar make." >&2
+            exit 1
+	fi
+
+	exit 0
+	;;
     f | -f | file | --file)
 	INSTALLFILE="$2"
 	;;
 
-u | -u | update | --update)
-    echo "UPDATE INSTALLER"
-
-    [ -d /tmp/tortoise ] && rm -rf /tmp/tortoise
-    
-    mkdir -p /tmp/tortoise
-    if ! git clone --depth=1 https://github.com/tortoiselinux/install.git /tmp/tortoise; then
-        echo "Erro: Falha ao clonar o repositório." >&2
-        exit 1
-    fi
-
-    if ! cd /tmp/tortoise; then
-        echo "Erro: Falha ao entrar no diretório /tmp/tortoise." >&2
-        exit 1
-    fi
-
-    if ! make; then
-        echo "Erro: Falha ao executar make." >&2
-        exit 1
-    fi
-
-    exit 0
-    ;;
+    d | -d | dotfiles | --dotfiles)
+		TODO
+	;;
 esac
 
 source_or_create "$INSTALLFILE"

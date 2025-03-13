@@ -11,4 +11,10 @@ lightdm
 lightdm-gtk-greeter
 lightdm-gtk-greeter-settings
 xfce4-terminal
+ttf-jetbrains-mono-nerd
 networkmanager
+dunst
+feh
+arandr
+stow
+gdu

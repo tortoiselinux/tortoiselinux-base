@@ -158,7 +158,12 @@ dialog
 #expect
 reflector
 base-devel
+shellcheck
 
+
+# UTILITIES
 fastfetch
 micro
 emacs
+firefox
+arandr

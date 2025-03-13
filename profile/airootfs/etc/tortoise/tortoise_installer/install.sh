@@ -11,7 +11,7 @@ set -ex
 source /etc/tortoise/tortoise_installer/lib.sh
 source /etc/tortoise/tortoise_installer/logs/progress
 
-[[ -v INSTALLFILE ]] || INSTALLFILE="/$HOME/install.conf"
+[[ -v INSTALLFILE ]] || INSTALLFILE="/home/turtle/install.conf"
 
 source "$INSTALLFILE"
 

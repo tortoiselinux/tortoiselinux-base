@@ -16,6 +16,10 @@ print(){
     printf '%s\n' "$MSG"
 }
 
+TODO(){
+	print "THIS FEATURE IS NOT IMPLEMENTED YET"
+}
+
 error() {
   local MSG="$1"
   local EXIT_CODE="${2:-1}"
