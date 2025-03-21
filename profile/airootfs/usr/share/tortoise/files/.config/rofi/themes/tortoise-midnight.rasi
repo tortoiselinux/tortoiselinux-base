@@ -1,0 +1,76 @@
+*{
+	bg: #08111C;
+	txt: #00C848;
+	txt2: #FEFAF6;
+	hv: #00C848;
+	
+	background-color: @bg;
+	dark: @bg;
+	border: 0px;
+}
+
+window {
+	width: 500;
+	location: center;
+	ancor: center;
+	spacing: 0;
+	children: [mainbox];
+	orientation: horizontal;
+	border: 1px;
+	border-color: @txt;
+}
+
+mainbox{
+	children: [inputbar, message, listview];
+}
+
+message{
+	padding: 5px;
+}
+
+inputbar{
+	color: @txt;
+	padding: 11px;
+	border: 0px 0px 2px 0px;
+	border-color: @txt;
+}
+
+entry,prompt,case-indicator{
+	text-font: inherit;
+	text-color: @txt;
+}
+
+prompt{
+	margin: 0px 5px 0px 0px;
+}
+
+listview{
+	lines: 15;
+}
+
+entry{
+	placeholder: "Escreva aqui";
+	cursor: pointer;
+}
+
+element{
+	children: [ element-text, element-icon  ];
+	padding: 3px;
+	color: @txt;
+	font: inherit;
+	spacing: 5px;
+}
+
+element-text{
+	background-color: inherit;
+	text-color: inherit;
+}
+
+element selected.normal{
+	background-color: @hv;
+	color: @txt2;
+}
+
+element-icon {
+    size: 1em;
+}

@@ -26,7 +26,7 @@ file_permissions=(
   ["/usr/local/bin/choose-mirror"]="0:0:755"
   ["/usr/local/bin/Installation_guide"]="0:0:755"
   ["/usr/local/bin/livecd-sound"]="0:0:755"
-  ["/etc/tortoise/tortoise_installer/install.sh"]="0:0:755"
   ["/etc/skel/.xinitrc"]="0:0:755"
-  ["/etc/tortoise/tortoise_installer/configure.sh"]="0:0:755"
+  ["/usr/local/bin/egginstall"]="0:0:755"
+  ["/usr/local/bin/configure"]="0:0:755"
 )

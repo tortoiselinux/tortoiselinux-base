@@ -149,6 +149,8 @@ ttf-jetbrains-mono-nerd
 midnight-gtk-theme-git
 papirus-icon-theme
 nordzy-cursors
+feh
+picom
 
 # ESSENTIAL PACKAGES
 git
@@ -159,7 +161,6 @@ dialog
 reflector
 base-devel
 shellcheck
-
 
 # UTILITIES
 fastfetch
