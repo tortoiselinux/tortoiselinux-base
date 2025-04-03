@@ -12,6 +12,6 @@ To build the ISO, make sure the following dependencies are installed
 
 Now, run
 
-make
+    make
 
 After that, if the build process completes successfully, you will have a fresh ISO in the iso/ folder
