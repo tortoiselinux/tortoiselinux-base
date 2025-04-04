@@ -15,3 +15,9 @@ Now, run
     make
 
 After that, if the build process completes successfully, you will have a fresh ISO in the iso/ folder
+
+## How to bootstrap Installer
+
+Bootstrap the Tortoise Installer is simpler as make a ISO, just type
+
+    sudo make prepare
