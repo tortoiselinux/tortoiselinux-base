@@ -21,3 +21,7 @@ After that, if the build process completes successfully, you will have a fresh I
 bootstrap tortoise installer is as simple as making an ISO
 
     sudo make prepare
+
+## How to Install Tortoise
+
+You can get information about how to install on: https://tortoiselinux.github.io/tortoiselinux/installation_guide
