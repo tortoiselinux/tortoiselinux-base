@@ -18,6 +18,6 @@ After that, if the build process completes successfully, you will have a fresh I
 
 ## How to bootstrap Installer
 
-Bootstrap the Tortoise Installer is simpler as make a ISO, just type
+bootstrap tortoise installer is as simple as making an ISO
 
     sudo make prepare
