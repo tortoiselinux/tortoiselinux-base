@@ -87,7 +87,7 @@ write_env_var(){
 
 make_partitions(){
     dialog --msgbox \
-	   "Bem vindo ao instalador do tortoise! Para iniciar a instalação, crie suas partições no cfdisk." 0 0
+	   "Para iniciar a instalação, crie suas partições no cfdisk." 0 0
     cfdisk
 }
 

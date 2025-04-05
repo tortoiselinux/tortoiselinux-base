@@ -2,8 +2,8 @@
 #========================{HEADER}========================|
 #AUTHOR: wellyton 'welly' <welly.tohn@gmail.com>
 #PROGRAM: configure.sh 
-#DESCRIPTION: script para gerar informações que serão
-#             utilizadas pelo installador do tortoise
+#DESCRIPTION: script to generate information that will be
+#             used by the tortoise installer
 #LICENSE: MIT
 #========================{ END }=========================|
 
@@ -14,7 +14,6 @@ INSTALLFILE="/home/turtle/install.conf"
 mkdir -p /var/cache/tortoise
 mkdir -p /var/log/tortoise
 echo "" >> /var/cache/tortoise/progress
-
 
 source /usr/lib/tortoise/lib.sh
 source /var/cache/tortoise/progress
@@ -43,17 +42,17 @@ case $1 in
 	
 	mkdir -p /tmp/tortoise
 	if ! git clone --depth=1 https://github.com/tortoiselinux/install.git /tmp/tortoise; then
-            echo "Erro: Falha ao clonar o repositório." >&2
+            echo "Error: Failed to clone repo" >&2
             exit 1
 	fi
 
 	if ! cd /tmp/tortoise; then
-            echo "Erro: Falha ao entrar no diretório /tmp/tortoise." >&2
+            echo "Error: Failed to enter directory /tmp/tortoise." >&2
             exit 1
 	fi
 
 	if ! make install; then
-            echo "Erro: Falha ao executar make." >&2
+            echo "Error: Failed to execute make." >&2
             exit 1
 	fi
 
@@ -71,12 +70,13 @@ esac
 
 source_or_create "$INSTALLFILE"
 
-[[ $PARTITIONS == true ]] || (make_partitions && write_progress "PARTITIONS=true")
+#[[ $INTERNET_CONNECTION == true ]] || (nmtui && write_progress "INTERNET_CONNECTION=true")
+
+# [[ $PARTITIONS == true ]] || (make_partitions && write_progress "PARTITIONS=true")
 
 [[ -v EFI ]] || (get_efi && write_env_var "EFI=$EFI" "$INSTALLFILE")
 [[ -v SWAP ]] || (get_swap && write_env_var "SWAP=$SWAP" "$INSTALLFILE")
 [[ -v ROOT ]] || (get_root && write_env_var "ROOT=$ROOT" "$INSTALLFILE")
-[[ -v USERHOME ]] || write_env_var "USERHOME=$USERHOME" "$INSTALLFILE"
 [[ -v KEYBOARD ]] || (get_keymaps && write_env_var "KEYBOARD=$KEYBOARD" "$INSTALLFILE")
 [[ -v ENCODING ]] || (get_language && write_env_var "ENCODING=$ENCODING" "$INSTALLFILE")
 [[ -v ZONEINFO ]] || (get_zoneinfo && write_env_var "ZONEINFO=$ZONEINFO" "$INSTALLFILE")

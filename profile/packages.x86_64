@@ -152,7 +152,7 @@ nordzy-cursors
 feh
 picom
 
-# ESSENTIAL PACKAGES
+# DEV UTILITIES
 git
 curl
 wget
@@ -161,6 +161,10 @@ dialog
 reflector
 base-devel
 shellcheck
+networkmanager
+bat
+eza
+fzf
 
 # UTILITIES
 fastfetch
