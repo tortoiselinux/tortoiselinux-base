@@ -9,14 +9,13 @@ alias fastfetch='fastfetch \
 --logo "$HOME"/.config/tortoise/t_fetch/tortoisefetch.txt'
 
 # system commands alias
-alias ls="ls --color=auto"
-#alias cat="bat"
+alias ls="eza --color=auto --icons=always"
 
 # system info
-#alias install_info='ls -lct /etc | tail -1 | awk "{print $6, $7, $8}"'
+alias install_info='ls -lct /etc | tail -1 | awk "{print \$6, \$7, \$8}"'
 
 # source aliases
-alias update_alias="source ~/.bash_aliases"
+alias restart="exec zsh" # restart everything instead every individual config file modified
 alias activate="source ./venv/bin/activate"
 alias venv="virtualenv"
 
@@ -26,10 +25,12 @@ alias aconf="micro $HOME/.config/alacritty/alacritty.toml"
 alias zconf="micro $HOME/.zshrc"
 alias rconf="micro $HOME/.config/rofi/config.rasi"
 alias pconf="micro /etc/xdg/picom.conf"
-alias edit_alias="$EDITOR ~/.bash_aliases"
+alias edit_alias="$EDITOR ~/.tortoise_aliases"
 
 # yay aliases
-alias install="yay -S "
+# deprecate alias install="yay -S" because install is already a valid command
+
+alias get="yay -S "
 alias update="yay -Sy"
 alias upgrade="yay -Syu"
 alias remove="yay -R"
@@ -54,5 +55,5 @@ alias mirror_update="sudo reflector -f 5 -p https -l 5 --save /etc/pacman.d/mirr
 
 # text editors
 
-alias emacs="emacs -nw"
-alias m="emacs"
+alias m="emacs -nw"
+alias vim="nvim"
